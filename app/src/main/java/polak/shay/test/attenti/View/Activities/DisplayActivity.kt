@@ -9,6 +9,7 @@ import polak.shay.test.attenti.MyApp
 import polak.shay.test.attenti.R
 import polak.shay.test.attenti.View.Adapters.MatrixDisplayAdapter
 import android.view.View
+import android.view.View.OnClickListener
 import android.widget.Toast
 import polak.shay.test.attenti.Model.Finder
 import polak.shay.test.attenti.Model.Matrix
@@ -33,6 +34,7 @@ class DisplayActivity : AppCompatActivity(), Finder.FinderListener {
 
     fun paintMatix(v : View)
     {
+        mAdapter?.RemoveClickListener()
         Finder(MyApp.instance.getData()!!, this)
     }
 
