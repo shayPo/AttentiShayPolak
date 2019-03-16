@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Attenti</string>
+    <string name="row">Rows</string>
+    <string name="col">Columns</string>
+    <string name="randomize">RANDOMIZE</string>
+    <string name="input_size_error">input size error, the height and width must be over 1000</string>
+    <string name="solve">Solve</string>
+</resources>
