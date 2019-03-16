@@ -11,19 +11,21 @@ import android.widget.TextView
 import polak.shay.test.attenti.Model.Matrix
 import polak.shay.test.attenti.R
 
-class MatrixDisplayAdapter (
+class MatrixDisplayAdapter(
 
-    private val mContext : Context,
-    var mData : Matrix) : RecyclerView.Adapter<MatrixDisplayAdapter.ViewHolder>() {
+    private val mContext: Context,
+    var mData: Matrix
+) : RecyclerView.Adapter<MatrixDisplayAdapter.ViewHolder>() {
     var mStopClick = false
 
-    override fun onCreateViewHolder(parent : ViewGroup, type : Int) = ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.brick, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, type: Int) =
+        ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.brick, parent, false))
 
     override fun getItemCount() = mData.getCol() * mData.getRow()
 
-    override fun onBindViewHolder(holder : ViewHolder, position : Int) {
-        var row = if(position >= mData.getCol()) position / mData.getCol() else 0
-        var col = if(position >= mData.getRow()) position - row * mData.getCol() else position
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        var row = if (position >= mData.getCol()) position / mData.getCol() else 0
+        var col = if (position >= mData.getRow()) position - row * mData.getCol() else position
 
         holder.bind(mData.get(col, row), position)
     }
@@ -34,42 +36,38 @@ class MatrixDisplayAdapter (
     }
 
     fun RemoveClickListener() {
-mStopClick = true
+        mStopClick = true
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) , OnClickListener {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), OnClickListener {
 
-        var dataColor : View
+        var dataColor: View
 
         init {
-          dataColor = itemView.findViewById(R.id.data_color)
+            dataColor = itemView.findViewById(R.id.data_color)
         }
 
-        fun bind(data : Int, position: Int)
-        {
-            if(data < 2)
-            {
-                if(data == 0) {
+        fun bind(data: Int, position: Int) {
+            if (data < 2) {
+                if (data == 0) {
                     dataColor.tag = position
-                    dataColor.setOnClickListener(if(mStopClick) null else this)
+                    dataColor.setOnClickListener(if (mStopClick) null else this)
                     dataColor.setBackgroundColor(Color.WHITE)
-                }
-                else if(data == 1) {
+                } else if (data == 1) {
                     dataColor.setBackgroundColor(Color.BLACK)
                 }
-            }
-            else
-            {
+            } else {
                 dataColor.setBackgroundColor(Color.rgb(100 / data!!, 255 / data!!, 100 / data!!))
             }
         }
 
         override fun onClick(v: View?) {
             val position = v?.tag as Int
-            var row = if(position >= mData.getCol()) position / mData.getCol() else 0
-            var col = if(position >= mData.getRow()) position - row * mData.getCol() else position
-            if(mData.get(col, row) == 0) {
+            var row = if (position >= mData.getCol()) position / mData.getCol() else 0
+            var col = if (position >= mData.getRow()) position - row * mData.getCol() else position
+            if (mData.get(col, row) == 0) {
                 mData.set(col, row, 1)
+                notifyDataSetChanged()
             }
         }
     }
