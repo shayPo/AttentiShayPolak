@@ -29,8 +29,8 @@ class Finder(matrix: Matrix, listener: FinderListener?) : Creator.CreatorListene
     private fun search() {
         for (i: Int in 0..mMatrix.getCol()) {
             for (j: Int in 0..mMatrix.getCol()) {
-                if (mMatrix.get(i, j) == 1) {
-                    if (paint(i, j, mIslandNumber + 2, false)) {
+                if (mMatrix.get(i, j) > 0) {
+                    if (paint(i, j, mIslandNumber + 2)) {
                         mIslandNumber++
                     }
                 }
@@ -38,6 +38,41 @@ class Finder(matrix: Matrix, listener: FinderListener?) : Creator.CreatorListene
         }
     }
 
+    private fun paint(col: Int, row: Int, color: Int): Boolean {
+        var afterFind = Painter.STaRT
+        var color = color
+
+        searchPaint@ for (i: Int in -1..1) {
+            for (j: Int in -1..1) {
+                if (i == 0 && j == 0) {
+                    continue
+                }
+                else if(mMatrix.get(col + i, row + j) > 1)
+                {
+                    afterFind = Painter.PREVEASE_PAINT
+                    color = mMatrix.get(col + i, row + j)
+                    break@searchPaint
+                }
+            }
+        }
+
+        for (i: Int in -1..1) {
+            for (j: Int in -1..1) {
+                if (i == 0 && j == 0) {
+                    continue
+                } else if (mMatrix.get(col + i, row + j) > 0) {
+                    mMatrix.set(col + i, row + j, color)
+                    mMatrix.set(col, row, color)
+                    if(afterFind == Painter.STaRT)
+                    {
+                        afterFind = Painter.AFTER_PAINT
+                    }
+                }
+            }
+        }
+        return afterFind == Painter.AFTER_PAINT
+    }
+/*
     private fun paint(col: Int, row: Int, color: Int, finder: Boolean): Boolean {
         var afterFind = finder
         for (i: Int in -1..1) {
@@ -54,7 +89,7 @@ class Finder(matrix: Matrix, listener: FinderListener?) : Creator.CreatorListene
         }
         return afterFind
     }
-
+*/
     interface FinderListener {
         fun returnIslandNumber(matrix: Matrix, islandNumber: Int)
     }

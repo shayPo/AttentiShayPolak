@@ -5,33 +5,27 @@ import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.widget.TextView
 import polak.shay.test.attenti.Model.Matrix
 import polak.shay.test.attenti.R
 
-class MatrixDisplayAdapter(
-
+class ColDisplayAdapter(
     private val mContext: Context,
-    var mData: Matrix
-) : RecyclerView.Adapter<MatrixDisplayAdapter.ViewHolder>() {
+    var mData: Array<Int>?
+) : RecyclerView.Adapter<ColDisplayAdapter.ViewHolder>() {
     var mStopClick = false
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int) =
         ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.brick, parent, false))
 
-    override fun getItemCount() = mData.getCol() * mData.getRow()
+    override fun getItemCount() = mData!!.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var row = if (position >= mData.getCol()) position / mData.getCol() else 0
-        var col = if (position >= mData.getRow()) position - row * mData.getCol() else position
-
-        holder.bind(mData.get(col, row), position)
+        holder.bind(mData!!.get(position), position)
     }
 
-    fun updateDate(matrix: Matrix) {
-        mData = matrix
+    fun updateDate(data: Array<Int>?) {
+        mData = data
         notifyDataSetChanged()
     }
 
@@ -39,7 +33,7 @@ class MatrixDisplayAdapter(
         mStopClick = true
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), OnClickListener {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         var dataColor: View
 
@@ -63,10 +57,8 @@ class MatrixDisplayAdapter(
 
         override fun onClick(v: View?) {
             val position = v?.tag as Int
-            var row = if (position >= mData.getCol()) position / mData.getCol() else 0
-            var col = if (position >= mData.getRow()) position - row * mData.getCol() else position
-            if (mData.get(col, row) == 0) {
-                mData.set(col, row, 1)
+            if (mData!!.get(position) == 0) {
+                mData!!.set(position, 1)
                 notifyDataSetChanged()
             }
         }

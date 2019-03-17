@@ -25,7 +25,7 @@ class SetupActivity : AppCompatActivity(), Creator.CreatorListener
         val col = cols.text.toString().toInt()
         val row = rows.text.toString().toInt()
 
-        if(row < 1000 || col < 1000)
+        if(row < 1 || col < 1)
         {
             Toast.makeText(this, R.string.input_size_error, Toast.LENGTH_LONG).show()
         }

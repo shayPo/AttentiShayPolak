@@ -8,6 +8,7 @@ class Matrix(col: Int, row: Int, initialize : Boolean) {
     private var mData: Array<Array<Int>>? = null
     private var mCol = 0
     private var mRow = 0
+    private var mSize = 0
 
     init {
         if (row > 0 && col > 0) {
@@ -17,6 +18,7 @@ class Matrix(col: Int, row: Int, initialize : Boolean) {
             }
             mCol = col
             mRow = row
+            mSize = mCol * mRow
         }
     }
 
@@ -25,9 +27,14 @@ class Matrix(col: Int, row: Int, initialize : Boolean) {
         mData = Array(matrix.mCol, {i -> Array(matrix.mRow, {j -> matrix.get(i, j)})})
     }
 
+    fun getSize() = mSize
+
     fun getCol() = mCol
 
     fun getRow() = mRow
+
+    fun getCol(colNumber : Int) =  mData?.get(colNumber)
+
 
     fun get(col: Int, row: Int) : Int {
         if(col < 0 || col >= mCol || row < 0 || row >= mRow)
