@@ -1,16 +1,12 @@
 package polak.shay.test.attenti.View.Activities
 
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_display.*
 import polak.shay.test.attenti.MyApp
 import polak.shay.test.attenti.R
-import polak.shay.test.attenti.View.Adapters.MatrixDisplayAdapter
 import android.view.View
-import android.view.View.OnClickListener
 import android.widget.Toast
 import polak.shay.test.attenti.Model.Finder
 import polak.shay.test.attenti.Model.Matrix
@@ -37,11 +33,12 @@ class DisplayActivity : AppCompatActivity(), Finder.FinderListener {
 
     fun paintMatix(v: View) {
         mAdapter?.RemoveClickListener()
+        v.setOnClickListener(null)
         Finder(MyApp.instance.getData()!!, this)
     }
 
     fun previous(v: View) {
-        if (mColNumber - 1 > 0) {
+        if (mColNumber - 1 >= 0) {
             mColNumber--
             mAdapter!!.updateDate(MyApp.instance.getData()?.getCol(mColNumber))
         }

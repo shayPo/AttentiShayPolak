@@ -44,10 +44,7 @@ class Finder(matrix: Matrix, listener: FinderListener?) : Creator.CreatorListene
 
         searchPaint@ for (i: Int in -1..1) {
             for (j: Int in -1..1) {
-                if (i == 0 && j == 0) {
-                    continue
-                }
-                else if(mMatrix.get(col + i, row + j) > 1)
+                if(mMatrix.get(col + i, row + j) > 1)
                 {
                     afterFind = Painter.PREVEASE_PAINT
                     color = mMatrix.get(col + i, row + j)
