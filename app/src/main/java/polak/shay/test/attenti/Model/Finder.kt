@@ -39,14 +39,14 @@ class Finder(matrix: Matrix, listener: FinderListener?) : Creator.CreatorListene
     }
 
     private fun paint(col: Int, row: Int, color: Int): Boolean {
-        var afterFind = Painter.STaRT
+        var afterFind = Painter.START
         var color = color
 
         searchPaint@ for (i: Int in -1..1) {
             for (j: Int in -1..1) {
                 if(mMatrix.get(col + i, row + j) > 1)
                 {
-                    afterFind = Painter.PREVEASE_PAINT
+                    afterFind = Painter.PREVIOUS_PAINT
                     color = mMatrix.get(col + i, row + j)
                     break@searchPaint
                 }
@@ -55,12 +55,9 @@ class Finder(matrix: Matrix, listener: FinderListener?) : Creator.CreatorListene
 
         for (i: Int in -1..1) {
             for (j: Int in -1..1) {
-                if (i == 0 && j == 0) {
-                    continue
-                } else if (mMatrix.get(col + i, row + j) > 0) {
+                if (mMatrix.get(col + i, row + j) > 0) {
                     mMatrix.set(col + i, row + j, color)
-                    mMatrix.set(col, row, color)
-                    if(afterFind == Painter.STaRT)
+                    if(afterFind == Painter.START)
                     {
                         afterFind = Painter.AFTER_PAINT
                     }

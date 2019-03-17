@@ -2,7 +2,7 @@ package polak.shay.test.attenti.Model
 
 enum class Painter
 {
-    STaRT,
-    PREVEASE_PAINT,
+    START,
+    PREVIOUS_PAINT,
     AFTER_PAINT
 }
