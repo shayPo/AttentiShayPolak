@@ -51,7 +51,8 @@ class ColDisplayAdapter(
                     dataColor.setBackgroundColor(Color.BLACK)
                 }
             } else {
-                dataColor.setBackgroundColor(Color.rgb(100 / data!!, 255 / data!!, 100 / data!!))
+
+                dataColor.setBackgroundColor(Color.rgb(255 / data,  255, 255))
             }
         }
 
