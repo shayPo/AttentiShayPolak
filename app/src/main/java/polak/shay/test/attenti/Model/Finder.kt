@@ -55,8 +55,13 @@ class Finder(matrix: Matrix, listener: FinderListener?) : Creator.CreatorListene
 
         for (i: Int in -1..1) {
             for (j: Int in -1..1) {
-                if (mMatrix.get(col + i, row + j) > 0) {
+                if(i == 0 && j == 0)
+                {
+                    continue
+                }
+                else if (mMatrix.get(col + i, row + j) > 0) {
                     mMatrix.set(col + i, row + j, color)
+                    mMatrix.set(col, row, color)
                     if(afterFind == Painter.START)
                     {
                         afterFind = Painter.AFTER_PAINT
