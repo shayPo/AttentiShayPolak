@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="40dp"
-             android:background="@android:color/holo_blue_bright"
-             android:layout_height="40dp">
+             android:layout_width="100dp"
+             android:background="@android:color/black"
+             android:layout_height="100dp">
 
     <View
             android:layout_gravity="center"
             android:id="@+id/data_color"
             android:background="@android:color/black"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
             ></View>
 </FrameLayout>

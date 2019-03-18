@@ -5,4 +5,5 @@
     <string name="randomize">RANDOMIZE</string>
     <string name="input_size_error">input size error, the height and width must be over 1000</string>
     <string name="solve">Solve</string>
+    <string name="reset">Reset</string>
 </resources>

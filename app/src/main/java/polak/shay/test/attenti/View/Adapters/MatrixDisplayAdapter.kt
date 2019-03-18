@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.widget.TextView
 import polak.shay.test.attenti.Model.Matrix
 import polak.shay.test.attenti.R
 
@@ -35,8 +34,12 @@ class MatrixDisplayAdapter(
         notifyDataSetChanged()
     }
 
-    fun RemoveClickListener() {
+    fun removeClickListener() {
         mStopClick = true
+    }
+
+    fun setClickListener() {
+        mStopClick = false
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), OnClickListener {
