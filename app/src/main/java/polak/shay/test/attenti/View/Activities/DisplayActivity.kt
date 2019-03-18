@@ -13,6 +13,9 @@ import android.widget.Toast
 import polak.shay.test.attenti.Model.Finder
 import polak.shay.test.attenti.Model.Matrix
 import polak.shay.test.attenti.View.Adapters.MatrixDisplayAdapter
+import android.support.v7.widget.RecyclerView
+
+
 
 
 class DisplayActivity : AppCompatActivity(), Finder.FinderListener {
@@ -29,7 +32,9 @@ class DisplayActivity : AppCompatActivity(), Finder.FinderListener {
 
     private fun setupView() {
         val matrix = MyApp.instance.getData()
-        //displayMatrix.setLayoutManager( GridLayoutManager(this, matrix!!.getCol()))
+        val recycledViewPool = RecyclerView.RecycledViewPool()
+        recycledViewPool.setMaxRecycledViews(0, 15)
+        displayMatrix.setRecycledViewPool(recycledViewPool)
         displayMatrix.setLayoutManager(GridLayoutManager(this, matrix!!.getRow(), GridLayoutManager.HORIZONTAL, false))
         mAdapter = MatrixDisplayAdapter(this, matrix)
         displayMatrix.adapter = mAdapter
