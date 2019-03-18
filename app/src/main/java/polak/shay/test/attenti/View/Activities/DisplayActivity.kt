@@ -43,14 +43,14 @@ class DisplayActivity : AppCompatActivity(), Finder.FinderListener {
     fun paintMatix(v: View) {
         if(!mDisplayPaint)
         {
-            (v as TextView).setText(R.string.solve)
+            (v as TextView).setText(R.string.reset)
             mAdapter?.removeClickListener()
             Finder(MyApp.instance.getData()!!, this)
             mDisplayPaint = true
         }
         else
         {
-            (v as TextView).setText(R.string.reset)
+            (v as TextView).setText(R.string.solve)
             mAdapter?.setClickListener()
             mAdapter?.updateDate(MyApp.instance.getData()!!)
             mDisplayPaint = false
