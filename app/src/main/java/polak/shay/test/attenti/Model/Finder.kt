@@ -2,6 +2,7 @@ package polak.shay.test.attenti.Model
 
 import android.os.Handler
 import android.os.Looper
+import java.util.*
 
 class Finder(matrix: Matrix, listener: FinderListener?) : Creator.CreatorListener {
 
@@ -9,6 +10,7 @@ class Finder(matrix: Matrix, listener: FinderListener?) : Creator.CreatorListene
     private var mListener: FinderListener? = null
     private lateinit var mMatrix: Matrix
     private var mIslandNumber = 0
+    private var mStack = Stack<String>()
 
     init {
         mListener = listener
@@ -27,68 +29,32 @@ class Finder(matrix: Matrix, listener: FinderListener?) : Creator.CreatorListene
     }
 
     private fun search() {
-        for (i: Int in 0..mMatrix.getCol()) {
-            for (j: Int in 0..mMatrix.getCol()) {
-                if (mMatrix.get(i, j) > 0) {
-                    if (paint(i, j, mIslandNumber + 2)) {
-                        mIslandNumber++
+        for (col : Int in 0..mMatrix.getCol()) {
+            for (row : Int in 0..mMatrix.getRow()) {
+                if (mMatrix.get(col, row) == 1) {
+                    paint(col , row, mIslandNumber + 2)
+                    while (mStack.size > 0) {
+                        val index = mStack.pop().split(",").toTypedArray()
+                        paint(index[0].toInt() , index[1].toInt(), index[2].toInt())
                     }
+                    mIslandNumber++
                 }
             }
         }
     }
 
-    private fun paint(col: Int, row: Int, color: Int): Boolean {
-        var afterFind = Painter.START
-        var color = color
-
-        searchPaint@ for (i: Int in -1..1) {
-            for (j: Int in -1..1) {
-                if(mMatrix.get(col + i, row + j) > 1)
-                {
-                    afterFind = Painter.PREVIOUS_PAINT
-                    color = mMatrix.get(col + i, row + j)
-                    break@searchPaint
-                }
-            }
-        }
-
+    private fun paint(col: Int, row: Int, color: Int){
         for (i: Int in -1..1) {
             for (j: Int in -1..1) {
-                if(i == 0 && j == 0)
-                {
-                    continue
-                }
-                else if (mMatrix.get(col + i, row + j) > 0) {
+                if (mMatrix.get(col + i, row + j) == 1) {
                     mMatrix.set(col + i, row + j, color)
                     mMatrix.set(col, row, color)
-                    if(afterFind == Painter.START)
-                    {
-                        afterFind = Painter.AFTER_PAINT
-                    }
+                    mStack.push("${col+i},${row+j},$color")
                 }
             }
         }
-        return afterFind == Painter.AFTER_PAINT
     }
-/*
-    private fun paint(col: Int, row: Int, color: Int, finder: Boolean): Boolean {
-        var afterFind = finder
-        for (i: Int in -1..1) {
-            for (j: Int in -1..1) {
-                if (i == 0 && j == 0) {
-                    continue
-                } else if (mMatrix.get(col + i, row + j) == 1) {
-                    mMatrix.set(col + i, row + j, color)
-                    mMatrix.set(col, row, color)
-                    afterFind = true
-                    paint(col + i, row + j, color, afterFind)
-                }
-            }
-        }
-        return afterFind
-    }
-*/
+
     interface FinderListener {
         fun returnIslandNumber(matrix: Matrix, islandNumber: Int)
     }
